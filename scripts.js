@@ -1,7 +1,7 @@
 /*global $ */
 
 //Please copy and paste your API key between the quotes! //
-// var mashAPI = "";
+// var mashAPI = "a6wERDhjTmmshKyPGxqw4lMfF1Hjp1KLZxzjsnxE0IZIiQruQw";
 
 
 
@@ -84,17 +84,15 @@ var quotes = {
 
 
 document.getElementById("newQuote").onclick = function() {
+  quotes.getQuote();
+  quotes.getRandomColor();
   document.getElementById("insertImg").style.display = "none";
-  document.getElementById("postTwit").style.display = "inline-block";
-  document.getElementById("postRed").style.display = "inline-block";
   document.body.classList.remove("movie");
   quotes.getQuote();
   quotes.getRandomColor();
 };
 document.getElementById("newQuoteMash").onclick = function() {
   document.getElementById("insertImg").style.display = "none";
-  document.getElementById("postTwit").style.display = "inline-block";
-  document.getElementById("postRed").style.display = "inline-block";
   document.body.classList.add("movie");
   
   quotes.getQuoteMash();
@@ -114,4 +112,7 @@ document.getElementById("submitAPI").onclick = function() {
   document.getElementById("APISection").style.display = "none";
   
 };
+window.onload = function(){
 quotes.getQuote();
+quotes.getRandomColor();
+};

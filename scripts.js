@@ -52,7 +52,7 @@ var quotes = {
       url: "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages%7Cpageterms&generator=prefixsearch&redirects=1&formatversion=2&piprop=thumbnail&pithumbsize=250&pilimit=20&wbptterms=description&gpssearch=${" + quotes.title + "}&gpslimit=20",
       dataType: "jsonp",
       success: function(data) {
-        // console.log(data);
+        console.log(data);
         if (data.query) {
           if (data.query.pages[0].hasOwnProperty("thumbnail")) {
             quotes.image = data.query.pages[0].thumbnail.source;
@@ -88,7 +88,6 @@ document.getElementById("newQuote").onclick = function() {
   document.getElementById("postTwit").style.display = "inline-block";
   document.getElementById("postRed").style.display = "inline-block";
   document.body.classList.remove("movie");
-
   quotes.getQuote();
   quotes.getRandomColor();
 };

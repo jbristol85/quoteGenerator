@@ -1,6 +1,6 @@
 /*global $ */
 
-var mashAPI = "a6wERDhjTmmshKyPGxqw4lMfF1Hjp1KLZxzjsnxE0IZIiQruQw";
+var mashAPI = "";
 var quotes = {
   quote: "",
   title: "",
@@ -73,7 +73,7 @@ var quotes = {
   }
 };
 
-// a6wERDhjTmmshKyPGxqw4lMfF1Hjp1KLZxzjsnxE0IZIiQruQw
+
 
 document.getElementById("newQuote").onclick = function() {
   document.getElementById("insertImg").style.display = "none";

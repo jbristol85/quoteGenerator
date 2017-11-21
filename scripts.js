@@ -1,7 +1,7 @@
 /*global $ */
 
 //Please copy and paste your API key between the quotes! //
-// var mashAPI = "a6wERDhjTmmshKyPGxqw4lMfF1Hjp1KLZxzjsnxE0IZIiQruQw";
+// var mashAPI = "";
 
 
 
@@ -49,18 +49,28 @@ var quotes = {
   },
   getImage: function() {
     $.ajax({
-      url: "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages%7Cpageterms&generator=prefixsearch&redirects=1&formatversion=2&piprop=thumbnail&pithumbsize=250&pilimit=20&wbptterms=description&gpssearch=${" + quotes.title + "}&gpslimit=20",
+      url: "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages%7Cpageterms&generator=prefixsearch&redirects=1&formatversion=2&piprop=thumbnail&pithumbsize=250&pilimit=20&wbptterms=description&gpssearch=${" + quotes.title+ "}&gpslimit=20",
       dataType: "jsonp",
       success: function(data) {
         console.log(data);
         if (data.query) {
-          if (data.query.pages[0].hasOwnProperty("thumbnail")) {
-            quotes.image = data.query.pages[0].thumbnail.source;
+          console.log("first if");
+          for(var i=0; i<data.query.pages.length; i++){
+            console.log("for loop", i);
+          if(data.query.pages[i].thumbnail){
+            console.log("second if");
+            
+          
+         
+            quotes.image = data.query.pages[i].thumbnail.source;
             document.getElementById("insertImg").style.display = "inline-block";
             quotes.postImg();
+          break;
           }
-        }
-        else {
+          } 
+          
+        }else {
+          console.log("else")
           document.getElementById("insertImg").style.display = "none";
         }
       }
@@ -88,8 +98,8 @@ document.getElementById("newQuote").onclick = function() {
   quotes.getRandomColor();
   document.getElementById("insertImg").style.display = "none";
   document.body.classList.remove("movie");
-  quotes.getQuote();
-  quotes.getRandomColor();
+//   quotes.getQuote();
+//   quotes.getRandomColor();
 };
 document.getElementById("newQuoteMash").onclick = function() {
   document.getElementById("insertImg").style.display = "none";
@@ -113,6 +123,7 @@ document.getElementById("submitAPI").onclick = function() {
   
 };
 window.onload = function(){
+  console.log("window");
 quotes.getQuote();
 quotes.getRandomColor();
 };

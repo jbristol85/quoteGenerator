@@ -10,13 +10,32 @@ var quotes = {
   quote: "",
   title: "",
   image: "",
-  getQuote: function() {
-    $.getJSON("https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=", function(data) {
+  // getQuote: function() {
+  //   $.getJSON("https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=", function(data) {
+  //     console.log(data);
+  //     quotes.quote = data[0].content.slice(3, -5);
+  //     quotes.title = data[0].title;
+  //     quotes.postQuote();
+  //     quotes.getImage();
+  //   });
+  // },
+   getQuote: function() {
+   $.ajax({
+         url: 'https://api.forismatic.com/api/1.0/',
+         jsonp: 'jsonp',
+         dataType: 'jsonp',
+         data: {
+            method: 'getQuote',
+            lang: 'en',
+            format: 'jsonp'
+         },
+         success: function(data) {
       console.log(data);
-      quotes.quote = data[0].content.slice(3, -5);
-      quotes.title = data[0].title;
+      quotes.quote = data.quoteText;
+      quotes.title = data.quoteAuthor;
       quotes.postQuote();
       quotes.getImage();
+         }
     });
   },
   getQuoteMash: function() {

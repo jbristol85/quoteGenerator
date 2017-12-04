@@ -1,8 +1,8 @@
-/*global $ */
+/*global $ mashAPI */
 
 //Please copy and paste your API key between the quotes! //
-// var mashAPI = "";
 
+// https://market.mashape.com/andruxnet/random-famous-quotes#get-endpoint
 
 
 var quotes = {
@@ -10,44 +10,33 @@ var quotes = {
   quote: "",
   title: "",
   image: "",
-  // getQuote: function() {
-  //   $.getJSON("https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=", function(data) {
-  //     console.log(data);
-  //     quotes.quote = data[0].content.slice(3, -5);
-  //     quotes.title = data[0].title;
-  //     quotes.postQuote();
-  //     quotes.getImage();
-  //   });
-  // },
-   getQuote: function() {
-   $.ajax({
-         url: 'https://api.forismatic.com/api/1.0/',
-         jsonp: 'jsonp',
-         dataType: 'jsonp',
-         data: {
-            method: 'getQuote',
-            lang: 'en',
-            format: 'jsonp'
-         },
-         success: function(data) {
-      console.log(data);
-      quotes.quote = data.quoteText;
-      quotes.title = data.quoteAuthor;
-      quotes.postQuote();
-      quotes.getImage();
-         }
+
+  getQuote: function() {
+    $.ajax({
+      url: 'https://api.forismatic.com/api/1.0/',
+      jsonp: 'jsonp',
+      dataType: 'jsonp',
+      data: { method: 'getQuote', lang: 'en', format: 'jsonp' },
+      success: function(data) {
+        // console.log(data);
+        quotes.quote = data.quoteText;
+        quotes.title = data.quoteAuthor;
+        quotes.postQuote();
+        quotes.getImage();
+      }
     });
   },
   getQuoteMash: function() {
     $.ajax({
-      url: "https://andruxnet-random-famous-quotes.p.mashape.com/?cat=movies",
+      url: "https://andruxnet-random-famous-quotes.p.mashape.com",
       type: "GET",
-      data: {},
-      datatype: 'json',
+      data: {cat: "movies"},
+      datatype: "JSON",
       success: function(data) {
-        // console.log(data);
-        quotes.quote = data.quote;
-        quotes.title = data.author;
+        var results = JSON.parse(data);
+        console.log(results);
+        quotes.quote = results.quote;
+        quotes.title = results.author;
         quotes.postQuote();
         quotes.getImage();
       },
@@ -55,6 +44,7 @@ var quotes = {
       beforeSend: function(xhr) {
         xhr.setRequestHeader("X-Mashape-Authorization", quotes.mashAPI);
       }
+
     });
   },
   postQuote: function() {
@@ -62,7 +52,7 @@ var quotes = {
     document.getElementById("insertTitle").innerHTML = '- ' + quotes.title;
   },
   postImg: function() {
-    console.log(quotes.image);
+    // console.log(quotes.image);
     document.getElementById("insertImg").src = quotes.image;
 
   },
